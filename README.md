@@ -5,10 +5,10 @@ Simple Julia implementation of the bandit task and two-tap tasks from 'Prefronta
 Usage:
 
 `julia bandit_train.jl` #train RNN on the bandit task\
-`julia bandit_anal.jl` #plot simple results
+`julia bandit_anal.jl` #plot simple analyses
 
 `julia twostep_train.jl` #train RNN on the twostep task\
-`julia twostep_anal.jl` #plot simple results
+`julia twostep_anal.jl` #plot simple analyses
 
 The default training procedure uses 10,000 'episodes' (as defined by Wang & Kurth-Nelson) and takes ~6-7 minutes to train on CPU for each task. This is generally sufficient for convergence but can also be increased to improve the convergence probability.
 
