@@ -24,8 +24,8 @@ types = []
 stays = []
 for i = 1:1000
     L, ys, rews, as, ps, hs, states = run_episode(m, hidden = true)
-    test_as = [test_as as]
-    test_rews = [test_as as]
+    global test_as = [test_as as]
+    global test_rews = [test_as as]
 
     for t = 11:2:(T-2)
         a = as[t] #action on THIS trial
@@ -34,8 +34,8 @@ for i = 1:1000
         rew = rews[t+1] #NEXT reward (after the NEXT state)
         type = 2*(1-rew) + 1 - 1*comm #0 (rew common), 1 (rew uncommon), 2 (unrew common), 3 (unrew uncommon)
         stay = (a == as[t+2]) #was my next action from state 1 the same?
-        types = [types; type]
-        stays = [stays; stay]
+        global types = [types; type]
+        global stays = [stays; stay]
     end
 
 end
@@ -55,5 +55,5 @@ ax = f.get_axes()[1]
 ax.spines["top"].set_visible(false)
 ax.spines["right"].set_visible(false)
 xticks([-1.5, 1.5], ["rewarded", "unrewarded"])
-savefig("figs/test_twostep.png", bbox_inches = "tight")
+savefig("figs/twostep_history_dependence.png", bbox_inches = "tight")
 close()

@@ -10,7 +10,7 @@ using BSON: @load
 test_as = zeros(T, 0)
 for i = 1:100
     L, ys, rews, as, ps, hs, states = run_episode(m, ps = [0.20; 0.80], hidden = true)
-    test_as = [test_as as]
+    global test_as = [test_as as]
 end
 
 ### plot 'suboptimal pulls' ###
@@ -18,7 +18,7 @@ figure(figsize = (6, 4))
 imshow(1 .- test_as', cmap = "Greys", aspect = "auto")
 xlabel("trial", fontsize = 12)
 ylabel("episode", fontsize = 12)
-savefig("figs/test_bandit.png", bbox_inches = "tight")
+savefig("figs/bandit_suboptimal_pulls.png", bbox_inches = "tight")
 close()
 
 ### run for different bandit tasks ###
@@ -27,7 +27,7 @@ all_hs = zeros(Nhidden, 0)
 for ps = bandits
     println(ps)
     L, ys, rews, as, ps, hs = run_episode(m, ps = ps, hidden = true)
-    all_hs = [all_hs hs]
+    global all_hs = [all_hs hs]
     println(mean(rews))
 end
 
@@ -54,5 +54,5 @@ for i = 1:length(zs)
     title(L"$p_L = $"*string(bandits[i][1]))
 end
 show()
-savefig("figs/test.png", bbox_inches = "tight")
+savefig("figs/bandit_dynamics_pca.png", bbox_inches = "tight")
 close()

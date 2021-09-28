@@ -6,11 +6,11 @@ function ChainRulesCore.rrule(::typeof(cpu), x::CuArray{Float32})
     pullback(Δ::Array{Float32}) = NoTangent(), cu(Δ)
     return cpu(x), pullback
 end
+use_cuda = false #cpu by default
 
 function forward(m, x)
     #this just adds a softmax to the policy output
     if use_cuda
-        #x = Zygote.@ignore cu(x)
         y = m( Zygote.@ignore cu(x) ) |> cpu #RNN step
     else
         y = m(x)
